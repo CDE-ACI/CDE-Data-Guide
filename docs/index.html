@@ -30,18 +30,32 @@ ul.task-list li input[type="checkbox"] {
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-8a79a254b8e706d3c925cde0a310d4f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-207e17f1a70ca2c9891d2c9981023b9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#outline-of-steps" id="toc-outline-of-steps" class="nav-link" data-scroll-target="#outline-of-steps">Outline of Steps</a>
+  <ul class="collapse">
+  <li><a href="#steps-requiring-admin-privileges" id="toc-steps-requiring-admin-privileges" class="nav-link" data-scroll-target="#steps-requiring-admin-privileges">Steps Requiring Admin Privileges</a></li>
+  <li><a href="#steps-not-requiring-admin-privileges" id="toc-steps-not-requiring-admin-privileges" class="nav-link" data-scroll-target="#steps-not-requiring-admin-privileges">Steps Not Requiring Admin Privileges</a></li>
+  </ul></li>
+  <li><a href="#install-r" id="toc-install-r" class="nav-link" data-scroll-target="#install-r">Install R</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -75,9 +89,44 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="outline-of-steps" class="level1">
 <h1>Outline of Steps</h1>
+<section id="steps-requiring-admin-privileges" class="level2">
+<h2 class="anchored" data-anchor-id="steps-requiring-admin-privileges">Steps Requiring Admin Privileges</h2>
+<ol type="1">
+<li>Install R</li>
+<li>Install RTools (optional but recommended)</li>
+<li>Install R Studio</li>
+<li>Install Git</li>
+<li>Install Github Desktop (optional but recommended)</li>
+<li>Create Connection to CDE Data Warehouse</li>
+</ol>
 </section>
-<section id="section" class="level1">
-<h1></h1>
+<section id="steps-not-requiring-admin-privileges" class="level2">
+<h2 class="anchored" data-anchor-id="steps-not-requiring-admin-privileges">Steps Not Requiring Admin Privileges</h2>
+<ol start="7" type="1">
+<li>Create GitHub Account</li>
+<li>Create Local Folder for Code Repositories</li>
+<li>Clone a Repository from GitHub
+<ol type="a">
+<li>Principles of Version Control Using Git</li>
+</ol></li>
+<li>Install R Packages
+<ol type="a">
+<li>How to Install Packages</li>
+<li>Overview of Required Packages</li>
+<li>Using RENV</li>
+<li>Set Up keyring Package</li>
+</ol></li>
+<li>Query Data from Warehouse</li>
+<li>Overview of CDE Code Repos</li>
+</ol>
+</section>
+</section>
+<section id="install-r" class="level1">
+<h1>Install R</h1>
+<p>R is the programming language that R Studio is based on. It needs to be installed separately before installing R Studio, which is the IDE (“Integrated Development Environment”) most commonly used with the R language.</p>
+<p>As a note, you do not need R Studio to use R. It can also be run through the R console or other IDEs such as VS Code or Positron. However, R Studio is probably the most intuitive and stable way to use R currently. This guide will focus on using R through R Studio.</p>
+<p>You can access installation files for R <a href="https://cloud.r-project.org/">here</a>. &nbsp;</p>
+<p>Updates to R are typically available a couple times each year. It’s a good idea to periodically update R, although in some cases this will require you to reinstall packages.</p>
 </section>
 
 </main>

@@ -1,7 +1,10 @@
 ---
 title: "CDE Data Guide"
 author: "CDE Accountability Analytics"
-format: html
+format: 
+  html:
+    toc: true
+    theme: darkly
 editor: visual
 ---
 
@@ -11,4 +14,35 @@ Welcome to the CDE Data Guide! This document is intended to describe procedures 
 
 # Outline of Steps
 
-# 
+## Steps Requiring Admin Privileges
+
+1.  Install R
+2.  Install RTools (optional but recommended)
+3.  Install R Studio
+4.  Install Git
+5.  Install Github Desktop (optional but recommended)
+6.  Create Connection to CDE Data Warehouse
+
+## Steps Not Requiring Admin Privileges
+
+7.  Create GitHub Account
+8.  Create Local Folder for Code Repositories
+9.  Clone a Repository from GitHub
+    a.  Principles of Version Control Using Git
+10. Install R Packages
+    a.  How to Install Packages
+    b.  Overview of Required Packages
+    c.  Using RENV
+    d.  Set Up keyring Package
+11. Query Data from Warehouse
+12. Overview of CDE Code Repos
+
+# Install R
+
+R is the programming language that R Studio is based on. It needs to be installed separately before installing R Studio, which is the IDE (“Integrated Development Environment”) most commonly used with the R language.
+
+As a note, you do not need R Studio to use R. It can also be run through the R console or other IDEs such as VS Code or Positron. However, R Studio is probably the most intuitive and stable way to use R currently. This guide will focus on using R through R Studio.
+
+You can access installation files for R [here](https://cloud.r-project.org/).  
+
+Updates to R are typically available a couple times each year. It’s a good idea to periodically update R, although in some cases this will require you to reinstall packages.
