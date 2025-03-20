@@ -46,3 +46,51 @@ As a note, you do not need R Studio to use R. It can also be run through the R c
 You can access installation files for R [here](https://cloud.r-project.org/).  
 
 Updates to R are typically available a couple times each year. It’s a good idea to periodically update R, although in some cases this will require you to reinstall packages.
+
+# Install RTools
+
+RTools is a set of additional tools used for package development and other advanced tasks in R for Windows. This step is not strictly necessary for most tasks, but it is needed in order to install packages developed by the CDE team directly from GitHub, so you might as well take care of it before installing R Studio.
+
+You can download and install RTools from [here](https://cran.r-project.org/bin/windows/Rtools/).
+
+# Install R Studio
+
+R Studio is the coding environment (or IDE) most commonly used with the R language.
+
+-   Installation files for R Studio Desktop are available [here](https://posit.co/download/rstudio-desktop/).
+-   Once installed, R Studio should detect your R installation automatically.
+-   You may want to consult this useful [Getting Started Guide](https://docs.posit.co/ide/user/ide/get-started/) for R Studio to understand the basic layout and workflow.
+
+# Install Git
+
+Git is a distributed version control system that helps you track and manage changes to files over time. In simple terms, it:
+
+-   **Tracks Changes:** Git keeps a detailed history of every change made to your files, allowing you to see what was modified, when, and by whom.
+
+-   **Supports Collaboration:** Because every contributor has a complete copy of the project history, multiple people can work simultaneously on the same project without overwriting each other’s work.
+
+-   **Enables Experimentation:** With features like branching, you can create separate lines of development (for example, for new features or experiments) without affecting the main project. Once you're satisfied, you can merge those changes back into the main branch.
+
+-   **Enhances Recovery:** If something goes wrong, you can easily revert your project to a previous, stable version, reducing the risk of losing work.
+
+GitHub is the platform built around Git, somewhat (though not exactly) like how R Studio is built around R.
+
+Git installation files can be accessed [here](https://git-scm.com/downloads). Default settings during installation should work fine.
+
+# Install GitHub Desktop
+
+Although it’s not strictly necessary to use the desktop version of GitHub’s platform, it’s relatively intuitive and easy to navigate. R Studio and most other IDEs also support Git within their software, and you can also use command line prompts to synchronize via Git, but GitHub desktop provides a graphical interface that may be more convenient.
+
+Download GitHub Desktop [here](https://desktop.github.com/download/) and follow instructions to install. You will finish setting this software up after you create a GitHub Account (see below).
+
+# Create Connection to Data Warehouse
+
+This step allows applications such as R Studio to communicate with the Oracle Database that comprises CDE’s data warehouse.
+
+1.  Open ODBC Data Source Administrator – 64 Bit on your laptop (search for it using the Start menu) and click “Add”.
+
+![](images/odbc.png){fig-align="center" width="476"}
+
+2.  Choose **Oracle in OraClient 12Home1** driver.
+
+![](images/oracledriver.png){fig-align="center" width="458"}

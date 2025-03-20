@@ -53,6 +53,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#steps-not-requiring-admin-privileges" id="toc-steps-not-requiring-admin-privileges" class="nav-link" data-scroll-target="#steps-not-requiring-admin-privileges">Steps Not Requiring Admin Privileges</a></li>
   </ul></li>
   <li><a href="#install-r" id="toc-install-r" class="nav-link" data-scroll-target="#install-r">Install R</a></li>
+  <li><a href="#install-rtools" id="toc-install-rtools" class="nav-link" data-scroll-target="#install-rtools">Install RTools</a></li>
+  <li><a href="#install-r-studio" id="toc-install-r-studio" class="nav-link" data-scroll-target="#install-r-studio">Install R Studio</a></li>
+  <li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git">Install Git</a></li>
+  <li><a href="#install-github-desktop" id="toc-install-github-desktop" class="nav-link" data-scroll-target="#install-github-desktop">Install GitHub Desktop</a></li>
+  <li><a href="#create-connection-to-data-warehouse" id="toc-create-connection-to-data-warehouse" class="nav-link" data-scroll-target="#create-connection-to-data-warehouse">Create Connection to Data Warehouse</a></li>
   </ul>
 </nav>
 </div>
@@ -127,6 +132,57 @@ ul.task-list li input[type="checkbox"] {
 <p>As a note, you do not need R Studio to use R. It can also be run through the R console or other IDEs such as VS Code or Positron. However, R Studio is probably the most intuitive and stable way to use R currently. This guide will focus on using R through R Studio.</p>
 <p>You can access installation files for R <a href="https://cloud.r-project.org/">here</a>. &nbsp;</p>
 <p>Updates to R are typically available a couple times each year. It’s a good idea to periodically update R, although in some cases this will require you to reinstall packages.</p>
+</section>
+<section id="install-rtools" class="level1">
+<h1>Install RTools</h1>
+<p>RTools is a set of additional tools used for package development and other advanced tasks in R for Windows. This step is not strictly necessary for most tasks, but it is needed in order to install packages developed by the CDE team directly from GitHub, so you might as well take care of it before installing R Studio.</p>
+<p>You can download and install RTools from <a href="https://cran.r-project.org/bin/windows/Rtools/">here</a>.</p>
+</section>
+<section id="install-r-studio" class="level1">
+<h1>Install R Studio</h1>
+<p>R Studio is the coding environment (or IDE) most commonly used with the R language.</p>
+<ul>
+<li>Installation files for R Studio Desktop are available <a href="https://posit.co/download/rstudio-desktop/">here</a>.</li>
+<li>Once installed, R Studio should detect your R installation automatically.</li>
+<li>You may want to consult this useful <a href="https://docs.posit.co/ide/user/ide/get-started/">Getting Started Guide</a> for R Studio to understand the basic layout and workflow.</li>
+</ul>
+</section>
+<section id="install-git" class="level1">
+<h1>Install Git</h1>
+<p>Git is a distributed version control system that helps you track and manage changes to files over time. In simple terms, it:</p>
+<ul>
+<li><p><strong>Tracks Changes:</strong> Git keeps a detailed history of every change made to your files, allowing you to see what was modified, when, and by whom.</p></li>
+<li><p><strong>Supports Collaboration:</strong> Because every contributor has a complete copy of the project history, multiple people can work simultaneously on the same project without overwriting each other’s work.</p></li>
+<li><p><strong>Enables Experimentation:</strong> With features like branching, you can create separate lines of development (for example, for new features or experiments) without affecting the main project. Once you’re satisfied, you can merge those changes back into the main branch.</p></li>
+<li><p><strong>Enhances Recovery:</strong> If something goes wrong, you can easily revert your project to a previous, stable version, reducing the risk of losing work.</p></li>
+</ul>
+<p>GitHub is the platform built around Git, somewhat (though not exactly) like how R Studio is built around R.</p>
+<p>Git installation files can be accessed <a href="https://git-scm.com/downloads">here</a>. Default settings during installation should work fine.</p>
+</section>
+<section id="install-github-desktop" class="level1">
+<h1>Install GitHub Desktop</h1>
+<p>Although it’s not strictly necessary to use the desktop version of GitHub’s platform, it’s relatively intuitive and easy to navigate. R Studio and most other IDEs also support Git within their software, and you can also use command line prompts to synchronize via Git, but GitHub desktop provides a graphical interface that may be more convenient.</p>
+<p>Download GitHub Desktop <a href="https://desktop.github.com/download/">here</a> and follow instructions to install. You will finish setting this software up after you create a GitHub Account (see below).</p>
+</section>
+<section id="create-connection-to-data-warehouse" class="level1">
+<h1>Create Connection to Data Warehouse</h1>
+<p>This step allows applications such as R Studio to communicate with the Oracle Database that comprises CDE’s data warehouse.</p>
+<ol type="1">
+<li>Open ODBC Data Source Administrator – 64 Bit on your laptop (search for it using the Start menu) and click “Add”.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/odbc.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="476"></p>
+</figure>
+</div>
+<ol start="2" type="1">
+<li>Choose <strong>Oracle in OraClient 12Home1</strong> driver.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/oracledriver.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="458"></p>
+</figure>
+</div>
 </section>
 
 </main>
