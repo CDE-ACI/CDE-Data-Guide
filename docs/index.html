@@ -8,7 +8,7 @@
 
 <meta name="author" content="CDE Accountability Analytics">
 
-<title>CDE Data Guide</title>
+<title>CDE R/Git Setup Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,10 +64,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-207e17f1a70ca2c9891d2c9981023b9d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="index_files/libs/bootstrap/bootstrap-79912ce8028e1efe7c0b985ea614e92f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CDE Data Guide</h1>
+<h1 class="title">CDE R/Git Setup Guide</h1>
 </div>
 
 
@@ -349,6 +349,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="query-data-from-cde-warehouse" class="level1">
 <h1>Query Data from CDE Warehouse</h1>
+<p>The process below describes our most recent method for pulling data from the warehouse into R.</p>
+<ol type="1">
+<li>Open a connection to the warehouse. This code uses <code>dbConnect</code> from the <code>DBI</code> package as well as <code>odbc</code>. Username and password are retrieved using the <code>keyring</code> package so that they do not appear in your scipt.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), <span class="at">dsn =</span> <span class="st">"EDWQA"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">uid =</span> <span class="fu">key_get</span>(<span class="st">"WAREHOUSE"</span>, <span class="st">"uid"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pwd =</span> <span class="fu">key_get</span>(<span class="st">"WAREHOUSE"</span>, <span class="st">"pwd"</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">timeout =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Write a separate script with the SQL query. These are usually stored in the “src” folder withing the project. Many of these SQL queries can be used across projects, so I find it helpful to maintain a folder of SQL scripts that I can draw from when needed. When pulling from multiple tables, you can perform joins either in SQL or in R. I typically use R to join data unless running the join in SQL means having to pull substantially less data from the warehouse.</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- this script is saved in a file named ada_sch.sql</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ADA_SCH_BY_YEAR.DASY_KEY,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DDST_DIST_NUMBER,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DDST_DISTRICT_NAME,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DSCH_SCHOOL_NUMBER,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DSCH_SCHOOL_NAME,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DSCH_GRADE_SPAN_LOW,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.DSCH_GRADE_SPAN_HIGH,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.ALT_ED_CAMPUS_YN,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.ONLINE_YN,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.MAGNET_YN,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.CHARTER_YN,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.INNOVATION_YN,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.HOME_SCH_OPTIONS_YN,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.SETTING,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>       ADA_SCH_BY_YEAR.REGION</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> EDW_DATA_MART.ADA_SCH_BY_YEAR ADA_SCH_BY_YEAR</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ((ADA_SCH_BY_YEAR.DASY_KEY <span class="kw">BETWEEN</span> <span class="dv">2016</span> <span class="kw">AND</span> <span class="dv">2024</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> (ADA_SCH_BY_YEAR.INCLUDED_ACCREDITATION <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Create a new R object using the connection you made in the first step and the SQL file you created in the second step. This will result in an R data frame object containing the data from your query!</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_sch <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="fu">readLines</span>(<span class="st">"src/ada_sch.sql"</span>) <span class="sc">|&gt;</span> <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 </main>
