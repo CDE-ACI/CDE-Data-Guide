@@ -87,7 +87,7 @@ Download GitHub Desktop [here](https://desktop.github.com/download/) and follow 
 
 This step allows applications such as R Studio to communicate with the Oracle Database that comprises CDE’s data warehouse.
 
-1.  Open ODBC Data Source Administrator – 64 Bit on your laptop (search for it using the Start menu) and click “Add”.
+1.  Open **ODBC Data Source Administrator – 64 Bit** on your laptop (search for it using the Start menu) and click “Add”.
 
 ![](images/odbc.png){fig-align="center" width="476"}
 
