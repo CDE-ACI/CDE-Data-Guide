@@ -94,3 +94,5 @@ This step allows applications such as R Studio to communicate with the Oracle Da
 2.  Choose **Oracle in OraClient 12Home1** driver.
 
 ![](images/oracledriver.png){fig-align="center" width="458"}
+
+3.  
