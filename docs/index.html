@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -58,6 +92,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git">Install Git</a></li>
   <li><a href="#install-github-desktop" id="toc-install-github-desktop" class="nav-link" data-scroll-target="#install-github-desktop">Install GitHub Desktop</a></li>
   <li><a href="#create-connection-to-data-warehouse" id="toc-create-connection-to-data-warehouse" class="nav-link" data-scroll-target="#create-connection-to-data-warehouse">Create Connection to Data Warehouse</a></li>
+  <li><a href="#create-local-folder-for-repositories" id="toc-create-local-folder-for-repositories" class="nav-link" data-scroll-target="#create-local-folder-for-repositories">Create Local Folder for Repositories</a></li>
+  <li><a href="#clone-github-repos-to-your-local-folder" id="toc-clone-github-repos-to-your-local-folder" class="nav-link" data-scroll-target="#clone-github-repos-to-your-local-folder">Clone GitHub Repo(s) to Your Local Folder</a>
+  <ul class="collapse">
+  <li><a href="#basic-principles-of-version-control-using-git" id="toc-basic-principles-of-version-control-using-git" class="nav-link" data-scroll-target="#basic-principles-of-version-control-using-git">Basic Principles of Version Control using Git</a></li>
+  </ul></li>
+  <li><a href="#install-r-packages" id="toc-install-r-packages" class="nav-link" data-scroll-target="#install-r-packages">Install R Packages</a>
+  <ul class="collapse">
+  <li><a href="#how-to-install-and-load-packages" id="toc-how-to-install-and-load-packages" class="nav-link" data-scroll-target="#how-to-install-and-load-packages">How to Install and Load Packages</a></li>
+  <li><a href="#overview-of-required-packages" id="toc-overview-of-required-packages" class="nav-link" data-scroll-target="#overview-of-required-packages">Overview of Required Packages</a></li>
+  <li><a href="#using-renv" id="toc-using-renv" class="nav-link" data-scroll-target="#using-renv">Using <code>renv</code></a></li>
+  </ul></li>
+  <li><a href="#set-up-keyring-package" id="toc-set-up-keyring-package" class="nav-link" data-scroll-target="#set-up-keyring-package">Set Up <code>keyring</code> Package</a></li>
+  <li><a href="#query-data-from-cde-warehouse" id="toc-query-data-from-cde-warehouse" class="nav-link" data-scroll-target="#query-data-from-cde-warehouse">Query Data from CDE Warehouse</a></li>
   </ul>
 </nav>
 </div>
@@ -168,7 +215,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Create Connection to Data Warehouse</h1>
 <p>This step allows applications such as R Studio to communicate with the Oracle Database that comprises CDE’s data warehouse.</p>
 <ol type="1">
-<li>Open ODBC Data Source Administrator – 64 Bit on your laptop (search for it using the Start menu) and click “Add”.</li>
+<li>Open <strong>ODBC Data Source Administrator – 64 Bit</strong> on your laptop (search for it using the Start menu) and click “Add”.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -183,6 +230,125 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/oracledriver.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="458"></p>
 </figure>
 </div>
+<ol start="3" type="1">
+<li>Click Finish and add info for the data source you want to connect to (e.g., EDWP, EDWQA, etc). Type the User ID that you use for Toad, then click Test Connection.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/driver-config.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="432"></p>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Enter Service Name (e.g., EDWP) and Password, then OK. This should complete the connection.</li>
+<li>Add a separate connection for each data source that you will be needing to access (e.g., EDWP, EDWQA, EDWD, etc).</li>
+</ol>
+</section>
+<section id="create-local-folder-for-repositories" class="level1">
+<h1>Create Local Folder for Repositories</h1>
+<p>To store your GitHub repos, you should create a folder named “Github” that is in your Documents folder but <strong>NOT on your OneDrive</strong>. In other words, this folder should be <em>on your local drive in a place that is not synched via OneDrive</em>. This is because GitHub takes care of synching, and you do not want OneDrive also managing the synching process separately.</p>
+<ul>
+<li><p>Note that you actually have two Documents folders on your machine. Most likely, the one you typically use is synched via OneDrive. You can tell by looking at the file path in File Explorer. <strong>If the path says “OneDrive” and/or “&lt;username&gt; – CDE Colorado”, then</strong> <strong>this is NOT the folder you want to use for GitHub (see below).</strong></p></li>
+<li><p><strong>You can navigate to your <em>local</em> drive using the file path shown below (but with your username)</strong>. Here you can see the full file path for my local Documents folder. You should add this location to your quick access bar so it’s easy to get to. Create your Github folder here. This is where all cloned repositories will be stored.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/path-01.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="clone-github-repos-to-your-local-folder" class="level1">
+<h1>Clone GitHub Repo(s) to Your Local Folder</h1>
+<p>If you’re new to GitHub, you may want to read <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories">this helpful resource</a> that explains the basics of a repository (“repo”) and some associated terminology.</p>
+<p>You will access and collaborate with code by cloning a repository to your local Github folder. Cloning a repo means that all files in the repository are copied to your local machine and then monitored by Git for any changes you or others make to the code.</p>
+<p>There are several ways to clone and manage a Repo. Most IDEs such as R Studio can handle version control using Git within the app, but I find GitHub Desktop to provide the most intuitive interface, even if it means using a separate app. Further, if there are conflicts between code versions that need to be resolved, this is much easier in GitHub desktop. You can set up multiple systems, including using command line prompts in Git bash or the terminal. It’s up to you what you use, but I will provide instructions here for GitHub Desktop as I think it’s the easiest place to start.</p>
+<p>Follow these steps to clone an existing repo to your machine.</p>
+<ol type="1">
+<li>Sign into GitHub in your browser and in GitHub Desktop</li>
+<li>In the browser, navigate to the main page of the repo.</li>
+<li>Above the list of files, click <strong>&lt;&gt; Code</strong></li>
+<li>Click <strong>Open with GitHub Desktop</strong></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/git1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>This will open a window in your GitHub Desktop app. Next, click <strong>Choose</strong> and navigate to the local GitHub folder you created in the prior step. The path should look like my example but with your username. Then click <strong>Clone.</strong></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/git2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ol start="6" type="1">
+<li>Each repo you clone or create will have its own folder within the local Github folder that you created on your machine. Repos may also have project folders within them. There are a variety of theories on how to organize repos. If a project is sufficiently large and distinct from other projects, it may warrant a separate repo. For quick one-off analyses and explorations, I prefer to use a single repo that contains separate projects. Note that developing an R package requires its own repo. I don’t cover creating a new repo here, but you can find plenty of information within GitHub documentation.</li>
+</ol>
+<section id="basic-principles-of-version-control-using-git" class="level2">
+<h2 class="anchored" data-anchor-id="basic-principles-of-version-control-using-git">Basic Principles of Version Control using Git</h2>
+<p><strong>IMPORTANT</strong>: <strong><em>Git should only synchronize code (text files), never data</em></strong>. Project folders in your repos will often contain data files, but these should be ignored by Git and not synced. This is accomplished through “.gitignore” files that exist in every repo (and often in individual projects). These files tell Git what files and folders to ignore when syncing. Typically, you won’t need to worry about altering the .gitignore files, but if you notice that GitHub Desktop is trying to sync a file that isn’t code (e.g., data, pdf files, etc.), then you can add code to .gitignore as needed.</p>
+<p>When you make changes to code, these are not automatically synced to the main repository on GitHub. At first, they exist only on your local machine. In order to be synced to the repo, changes must first be <strong>committed</strong> and then <strong>pushed</strong>.</p>
+<p>Below is a basic outline of the process for working with code using Git. You should do this frequently to avoid being out of sync with the main repo if other collaborators are also making changes! Note that you can do a lot with GitHub…this is just the most basic workflow:</p>
+<ol type="1">
+<li><strong>Fetch Latest Changes:</strong> Before starting work on a project, make sure you have the latest changes to the main repo synced with your local machine. Click the <em>Fetch origin</em> button to check for and download any updates from the remote repository.</li>
+<li><strong>Review Local Changes:</strong> GitHub Desktop displays modified, added, or deleted files in the left panel, allowing you to review differences using the built-in diff viewer.</li>
+<li><strong>Commit Your Work:</strong> Whenever you make changes to code, GitHub desktop will sense them and provide an overview of what files have been changed. When you’re ready to send a batch of changes to the remote repo, enter a descriptive commit message in the commit summary box in GitHub Desktop and click <em>Commit to [branch name]</em> to save your changes locally.</li>
+<li><strong>Push Your Commits:</strong> Once you’ve committed your changes, click <em>Push origin</em> to update the remote repository with your work.</li>
+</ol>
+</section>
+</section>
+<section id="install-r-packages" class="level1">
+<h1>Install R Packages</h1>
+<p>R packages are collections of functions, data, and documentation that extend the capabilities of R. They make it easy to perform specialized tasks—like data visualization, statistical modeling, or working with specific data formats—without having to write all the code from scratch.</p>
+<section id="how-to-install-and-load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-install-and-load-packages">How to Install and Load Packages</h2>
+<p>You can install packages separately or together using the <code>install.packages</code> command. To install more than one at once, simply concatenate them. Quotes are needed for package installation, as you see below. You generally will only have to install packages once, but they have to loaded for use in each project.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># install one package at a time</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"keyring"</span>)) <span class="co"># install multiple packages at once</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To load a package, use the <code>library</code> command without quotes around the package name. Note that you cannot load multiple packages as once by concatenating them as in the example above. One option is to load packages separately, as below:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keyring)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Another option is to create a vector of package names then use <code>lapply</code> to load them, as seen here:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"keyring"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note: In some cases you won’t see packages loaded at the start of an R script. This is typically because the packages are being loaded behind the scenes. For example, in a project using renv</p>
+</section>
+<section id="overview-of-required-packages" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-required-packages">Overview of Required Packages</h2>
+<p>At a minimum, the keyring package and either DBI/ODBC or RODBC are required to access warehouse data. The other packages on this list are used commonly across projects.</p>
+<ul>
+<li><strong><code>keyring</code></strong>: this package manages login credentials so that they do not appear in any syntax files synced to GitHub.</li>
+<li><strong><code>DBI</code></strong>: a database interface package used in more recent CDE scripts to access the database directly through the connections pane in R Studio. Using this package, a connection is opened to the database and separate SQL scripts are read into R to pull data. These SQL scripts typically exist in the “src” folder of a R project. More on this setup can be found below.</li>
+<li><strong><code>ODBC</code></strong>: an efficient interface for Open Database Connectivity (ODBC) drives. Works in conjunction with the <code>DBI</code> package to query data using SQL scripts.</li>
+<li><strong><code>RODBC</code></strong>: this package is used in some older projects to access the database by including a SQL query directly in the R script. We have moved away from this strategy in favor of using <code>DBI</code> to connect dynamically to the database and maintain SQL scripts in separate files, but some older code may not yet be updated.</li>
+<li><strong><code>renv</code></strong>: used to create reproducible environments for R projects. Earlier projects in the ACI-Syntax repo do not use renv, but more recent projects typically do unless they are short, one-off analyses. See below for more info on using <code>renv</code>.</li>
+<li><strong><code>tidyverse</code></strong>: this is a collection of packages designed for data science that share underlying structure and grammar. Nearly every file in our CDE repos relies on tidyverse packages. Commonly used packages that are part of tidyverse include <code>ggplot</code>, <code>dplyr</code>, <code>stringr</code>, <code>readr</code>, &amp; <code>tidyr</code>. You can install and load these individually, but I find it’s best just to load the entire <code>tidyverse</code>.</li>
+</ul>
+</section>
+<section id="using-renv" class="level2">
+<h2 class="anchored" data-anchor-id="using-renv">Using <code>renv</code></h2>
+<p><code>renv</code> stands for “R environment” and is a package designed to manage and ensure reproducibility of R projects by tracking and isolating project-specific package dependencies. It creates an isolated project environment that captures the exact versions of packages you’re using, allowing you and others to consistently recreate the environment and avoid conflicts caused by different package versions. All packages needed for a project are installed (if needed) and loaded with a single command. Using <code>renv</code>, you can easily snapshot your current package setup, restore packages exactly as recorded, and share your project knowing it will reliably run in other locations, which serves the ultimate goal of enhancing collaboration and reproducibility in R workflows.</p>
+<p>You do not have to use <code>renv</code>, but most recent projects in the CDE repos currently use it, and it must be installed in order to work in those projects.</p>
+<p>We have developed a specific project structure using renv that will be described later in this document. Below is a condensed version of this. You may want to do some background reading on renv <a href="https://rstudio.github.io/renv/articles/renv.html">here</a>.</p>
+<p>R projects that use renv are in their own folder within the repo and they should have a source folder called “src”. Within this is folder is a file called <code>lib.R</code>. At the top of most R files in a <code>renv</code> project, you will see that this library file is sourced at the top of the file, as seen below:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"src/lib.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Part of this library file is the <code>renv::restore</code> command that loads the environment and a series of <code>library</code> commands that load required packages.</p>
+</section>
+</section>
+<section id="set-up-keyring-package" class="level1">
+<h1>Set Up <code>keyring</code> Package</h1>
+<p>The <code>keyring</code> package is used to avoid having login credentials in plain text in script files. This package uses the Windows (or MacOS) credentialing system to access the necessary tokens, meaning that you unlock the keyring when you log into your machine. <code>keyring</code> enables the same syntax to be used across machines as long as the user has properly set up their keyring with their own login credentials.</p>
+<ul>
+<li><p>The setup process is simple and only needs to be done once (unless your credentials change).</p></li>
+<li><p>It is strongly recommended that your credentials be the same for each warehouse environment you use (e.g., EDWQA, EDWP, etc). The process here is designed to work this way. It is possible to have different username/password combinations, but that will entail alterations to the setup code and the code used to connect to the database.</p></li>
+<li><p>You only need to run three lines of code, shown below. There is also a <code>keyring_setup.R</code> file with this code in the ACI-Syntax repository. Running each line of this code will bring up an API window in R Studio that asks for your credentials. After running this code once, your credentials will be accessed by R whenever you connect to the warehouse.</p></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keyring)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>keyring<span class="sc">::</span><span class="fu">key_set</span>(<span class="st">"WAREHOUSE"</span>, <span class="st">"uid"</span>, <span class="at">prompt =</span> <span class="st">"Username"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>keyring<span class="sc">::</span><span class="fu">key_set</span>(<span class="st">"WAREHOUSE"</span>, <span class="st">"pwd"</span>, <span class="at">prompt =</span> <span class="st">"Password"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="query-data-from-cde-warehouse" class="level1">
+<h1>Query Data from CDE Warehouse</h1>
 </section>
 
 </main>

@@ -95,4 +95,129 @@ This step allows applications such as R Studio to communicate with the Oracle Da
 
 ![](images/oracledriver.png){fig-align="center" width="458"}
 
-3.  
+3.  Click Finish and add info for the data source you want to connect to (e.g., EDWP, EDWQA, etc). Type the User ID that you use for Toad, then click Test Connection.
+
+![](images/driver-config.png){fig-align="center" width="432"}
+
+4.  Enter Service Name (e.g., EDWP) and Password, then OK. This should complete the connection.
+5.  Add a separate connection for each data source that you will be needing to access (e.g., EDWP, EDWQA, EDWD, etc).
+
+# Create Local Folder for Repositories
+
+To store your GitHub repos, you should create a folder named “Github” that is in your Documents folder but **NOT on your OneDrive**. In other words, this folder should be *on your local drive in a place that is not synched via OneDrive*. This is because GitHub takes care of synching, and you do not want OneDrive also managing the synching process separately.
+
+-   Note that you actually have two Documents folders on your machine. Most likely, the one you typically use is synched via OneDrive. You can tell by looking at the file path in File Explorer. **If the path says “OneDrive” and/or “\<username\> – CDE Colorado”, then** **this is NOT the folder you want to use for GitHub (see below).**
+
+-   **You can navigate to your *local* drive using the file path shown below (but with your username)**. Here you can see the full file path for my local Documents folder. You should add this location to your quick access bar so it’s easy to get to. Create your Github folder here. This is where all cloned repositories will be stored.
+
+![](images/path-01.png){fig-align="center"}
+
+# Clone GitHub Repo(s) to Your Local Folder
+
+If you’re new to GitHub, you may want to read [this helpful resource](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories) that explains the basics of a repository (“repo”) and some associated terminology.
+
+You will access and collaborate with code by cloning a repository to your local Github folder. Cloning a repo means that all files in the repository are copied to your local machine and then monitored by Git for any changes you or others make to the code.
+
+There are several ways to clone and manage a Repo. Most IDEs such as R Studio can handle version control using Git within the app, but I find GitHub Desktop to provide the most intuitive interface, even if it means using a separate app. Further, if there are conflicts between code versions that need to be resolved, this is much easier in GitHub desktop. You can set up multiple systems, including using command line prompts in Git bash or the terminal. It’s up to you what you use, but I will provide instructions here for GitHub Desktop as I think it's the easiest place to start.
+
+Follow these steps to clone an existing repo to your machine.
+
+1.  Sign into GitHub in your browser and in GitHub Desktop
+2.  In the browser, navigate to the main page of the repo.
+3.  Above the list of files, click **\<\> Code**
+4.  Click **Open with GitHub Desktop**
+
+![](images/git1.png){fig-align="center"}
+
+5.  This will open a window in your GitHub Desktop app. Next, click **Choose** and navigate to the local GitHub folder you created in the prior step. The path should look like my example but with your username. Then click **Clone.**
+
+![](images/git2.png){fig-align="center"}
+
+6.  Each repo you clone or create will have its own folder within the local Github folder that you created on your machine. Repos may also have project folders within them. There are a variety of theories on how to organize repos. If a project is sufficiently large and distinct from other projects, it may warrant a separate repo. For quick one-off analyses and explorations, I prefer to use a single repo that contains separate projects. Note that developing an R package requires its own repo. I don't cover creating a new repo here, but you can find plenty of information within GitHub documentation.
+
+## Basic Principles of Version Control using Git
+
+**IMPORTANT**: ***Git should only synchronize code (text files), never data***. Project folders in your repos will often contain data files, but these should be ignored by Git and not synced. This is accomplished through “.gitignore” files that exist in every repo (and often in individual projects). These files tell Git what files and folders to ignore when syncing. Typically, you won’t need to worry about altering the .gitignore files, but if you notice that GitHub Desktop is trying to sync a file that isn’t code (e.g., data, pdf files, etc.), then you can add code to .gitignore as needed.
+
+When you make changes to code, these are not automatically synced to the main repository on GitHub. At first, they exist only on your local machine. In order to be synced to the repo, changes must first be **committed** and then **pushed**.
+
+Below is a basic outline of the process for working with code using Git. You should do this frequently to avoid being out of sync with the main repo if other collaborators are also making changes! Note that you can do a lot with GitHub...this is just the most basic workflow:
+
+1.  **Fetch Latest Changes:** Before starting work on a project, make sure you have the latest changes to the main repo synced with your local machine. Click the *Fetch origin* button to check for and download any updates from the remote repository.
+2.  **Review Local Changes:** GitHub Desktop displays modified, added, or deleted files in the left panel, allowing you to review differences using the built-in diff viewer.
+3.  **Commit Your Work:** Whenever you make changes to code, GitHub desktop will sense them and provide an overview of what files have been changed. When you’re ready to send a batch of changes to the remote repo, enter a descriptive commit message in the commit summary box in GitHub Desktop and click *Commit to \[branch name\]* to save your changes locally.
+4.  **Push Your Commits:** Once you’ve committed your changes, click *Push origin* to update the remote repository with your work.
+
+# Install R Packages
+
+R packages are collections of functions, data, and documentation that extend the capabilities of R. They make it easy to perform specialized tasks—like data visualization, statistical modeling, or working with specific data formats—without having to write all the code from scratch.
+
+## How to Install and Load Packages
+
+You can install packages separately or together using the `install.packages` command. To install more than one at once, simply concatenate them. Quotes are needed for package installation, as you see below. You generally will only have to install packages once, but they have to loaded for use in each project.
+
+``` r
+install.packages("tidyverse") # install one package at a time
+install.packages(c("tidyverse","keyring")) # install multiple packages at once
+```
+
+To load a package, use the `library` command without quotes around the package name. Note that you cannot load multiple packages as once by concatenating them as in the example above. One option is to load packages separately, as below:
+
+``` r
+library(tidyverse)
+library(keyring)
+```
+
+Another option is to create a vector of package names then use `lapply` to load them, as seen here:
+
+``` r
+packages <- c("tidyverse", "keyring")
+lapply(packages, library, character.only = TRUE)
+```
+
+Note: In some cases you won't see packages loaded at the start of an R script. This is typically because the packages are being loaded behind the scenes. For example, in a project using renv
+
+## Overview of Required Packages
+
+At a minimum, the keyring package and either DBI/ODBC or RODBC are required to access warehouse data. The other packages on this list are used commonly across projects.
+
+-   **`keyring`**: this package manages login credentials so that they do not appear in any syntax files synced to GitHub.
+-   **`DBI`**: a database interface package used in more recent CDE scripts to access the database directly through the connections pane in R Studio. Using this package, a connection is opened to the database and separate SQL scripts are read into R to pull data. These SQL scripts typically exist in the “src” folder of a R project. More on this setup can be found below.
+-   **`ODBC`**: an efficient interface for Open Database Connectivity (ODBC) drives. Works in conjunction with the `DBI` package to query data using SQL scripts.
+-   **`RODBC`**: this package is used in some older projects to access the database by including a SQL query directly in the R script. We have moved away from this strategy in favor of using `DBI` to connect dynamically to the database and maintain SQL scripts in separate files, but some older code may not yet be updated.
+-   **`renv`**: used to create reproducible environments for R projects. Earlier projects in the ACI-Syntax repo do not use renv, but more recent projects typically do unless they are short, one-off analyses. See below for more info on using `renv`.
+-   **`tidyverse`**: this is a collection of packages designed for data science that share underlying structure and grammar. Nearly every file in our CDE repos relies on tidyverse packages. Commonly used packages that are part of tidyverse include `ggplot`, `dplyr`, `stringr`, `readr`, & `tidyr`. You can install and load these individually, but I find it's best just to load the entire `tidyverse`.
+
+## Using `renv`
+
+`renv` stands for “R environment” and is a package designed to manage and ensure reproducibility of R projects by tracking and isolating project-specific package dependencies. It creates an isolated project environment that captures the exact versions of packages you're using, allowing you and others to consistently recreate the environment and avoid conflicts caused by different package versions. All packages needed for a project are installed (if needed) and loaded with a single command. Using `renv`, you can easily snapshot your current package setup, restore packages exactly as recorded, and share your project knowing it will reliably run in other locations, which serves the ultimate goal of enhancing collaboration and reproducibility in R workflows.
+
+You do not have to use `renv`, but most recent projects in the CDE repos currently use it, and it must be installed in order to work in those projects.
+
+We have developed a specific project structure using renv that will be described later in this document. Below is a condensed version of this. You may want to do some background reading on renv [here](https://rstudio.github.io/renv/articles/renv.html).
+
+R projects that use renv are in their own folder within the repo and they should have a source folder called “src”. Within this is folder is a file called `lib.R`. At the top of most R files in a `renv` project, you will see that this library file is sourced at the top of the file, as seen below:
+
+``` r
+source("src/lib.R")
+```
+
+Part of this library file is the `renv::restore` command that loads the environment and a series of `library` commands that load required packages.
+
+# Set Up `keyring` Package
+
+The `keyring` package is used to avoid having login credentials in plain text in script files. This package uses the Windows (or MacOS) credentialing system to access the necessary tokens, meaning that you unlock the keyring when you log into your machine. `keyring` enables the same syntax to be used across machines as long as the user has properly set up their keyring with their own login credentials.
+
+-   The setup process is simple and only needs to be done once (unless your credentials change).
+
+-   It is strongly recommended that your credentials be the same for each warehouse environment you use (e.g., EDWQA, EDWP, etc). The process here is designed to work this way. It is possible to have different username/password combinations, but that will entail alterations to the setup code and the code used to connect to the database.
+
+-   You only need to run three lines of code, shown below. There is also a `keyring_setup.R` file with this code in the ACI-Syntax repository. Running each line of this code will bring up an API window in R Studio that asks for your credentials. After running this code once, your credentials will be accessed by R whenever you connect to the warehouse.
+
+``` r
+library(keyring)
+keyring::key_set("WAREHOUSE", "uid", prompt = "Username")
+keyring::key_set("WAREHOUSE", "pwd", prompt = "Password")
+```
+
+# Query Data from CDE Warehouse
