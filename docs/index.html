@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-79912ce8028e1efe7c0b985ea614e92f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-906c63a93db69d5329a8709c14cf0e10.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Welcome to the CDE Data Guide! This document is intended to describe procedures used to set up R studio and the GitHub repositories used by CDE’s ACI team. After completing this process, you should be able to access and run scripts that pull data from CDE’s warehouse (WH) directly through R Studio.</p>
+<p>Welcome to the CDE R/Git Setup Guide! This document is intended to describe procedures used to set up your computer to use R and R studio with CDE warehouse data. It also covers basic use of Git and GitHub as well as how to access code repositories used by CDE’s ACI team. Steps are separated into those requiring admin privileges on your machine, such as installing software, and those that do not require such privileges.</p>
 </section>
 <section id="outline-of-steps" class="level1">
 <h1>Outline of Steps</h1>
@@ -351,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Query Data from CDE Warehouse</h1>
 <p>The process below describes our most recent method for pulling data from the warehouse into R.</p>
 <ol type="1">
-<li>Open a connection to the warehouse. This code uses <code>dbConnect</code> from the <code>DBI</code> package as well as <code>odbc</code>. Username and password are retrieved using the <code>keyring</code> package so that they do not appear in your scipt.</li>
+<li>Open a connection to the warehouse. This code uses <code>dbConnect</code> from the <code>DBI</code> package as well as <code>odbc</code>. Username and password are retrieved using the <code>keyring</code> package so that they do not appear in your scipt. Specify the appropriate warehouse location here as well (e.g., <code>dsn = "EDWQA"</code>).</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), <span class="at">dsn =</span> <span class="st">"EDWQA"</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">uid =</span> <span class="fu">key_get</span>(<span class="st">"WAREHOUSE"</span>, <span class="st">"uid"</span>),</span>

@@ -4,13 +4,13 @@ author: "CDE Accountability Analytics"
 format: 
   html:
     toc: true
-    theme: flatly
+    theme: sandstone
 editor: visual
 ---
 
 # Introduction
 
-Welcome to the CDE Data Guide! This document is intended to describe procedures used to set up R studio and the GitHub repositories used by CDE’s ACI team. After completing this process, you should be able to access and run scripts that pull data from CDE’s warehouse (WH) directly through R Studio.
+Welcome to the CDE R/Git Setup Guide! This document is intended to describe procedures used to set up your computer to use R and R studio with CDE warehouse data. It also covers basic use of Git and GitHub as well as how to access code repositories used by CDE’s ACI team. Steps are separated into those requiring admin privileges on your machine, such as installing software, and those that do not require such privileges.
 
 # Outline of Steps
 
@@ -224,7 +224,7 @@ keyring::key_set("WAREHOUSE", "pwd", prompt = "Password")
 
 The process below describes our most recent method for pulling data from the warehouse into R.
 
-1.  Open a connection to the warehouse. This code uses `dbConnect` from the `DBI` package as well as `odbc`. Username and password are retrieved using the `keyring` package so that they do not appear in your scipt.
+1.  Open a connection to the warehouse. This code uses `dbConnect` from the `DBI` package as well as `odbc`. Username and password are retrieved using the `keyring` package so that they do not appear in your scipt. Specify the appropriate warehouse location here as well (e.g., `dsn = "EDWQA"`).
 
 ``` r
 con <- dbConnect(odbc(), dsn = "EDWQA",
