@@ -18,8 +18,8 @@ Welcome to the CDE R/Git Setup Guide! This document is intended to describe proc
 
 1.  Install R
 2.  Install RTools (optional but recommended)
-3.  Install R Studio
-4.  Install Git
+3.  Install Git
+4.  Install R Studio
 5.  Install Github Desktop (optional but recommended)
 6.  Create Connection to CDE Data Warehouse
 
@@ -35,7 +35,6 @@ Welcome to the CDE R/Git Setup Guide! This document is intended to describe proc
     c.  Using RENV
     d.  Set Up keyring Package
 11. Query Data from Warehouse
-12. Overview of CDE Code Repos
 
 # Install R
 
@@ -53,14 +52,6 @@ RTools is a set of additional tools used for package development and other advan
 
 You can download and install RTools from [here](https://cran.r-project.org/bin/windows/Rtools/).
 
-# Install R Studio
-
-R Studio is the coding environment (or IDE) most commonly used with the R language.
-
--   Installation files for R Studio Desktop are available [here](https://posit.co/download/rstudio-desktop/).
--   Once installed, R Studio should detect your R installation automatically.
--   You may want to consult this useful [Getting Started Guide](https://docs.posit.co/ide/user/ide/get-started/) for R Studio to understand the basic layout and workflow.
-
 # Install Git
 
 Git is a distributed version control system that helps you track and manage changes to files over time. In simple terms, it:
@@ -76,6 +67,14 @@ Git is a distributed version control system that helps you track and manage chan
 GitHub is the platform built around Git, somewhat (though not exactly) like how R Studio is built around R.
 
 Git installation files can be accessed [here](https://git-scm.com/downloads). Default settings during installation should work fine.
+
+# Install R Studio
+
+R Studio is the coding environment (or IDE) most commonly used with the R language.
+
+-   Installation files for R Studio Desktop are available [here](https://posit.co/download/rstudio-desktop/).
+-   Once installed, R Studio should detect your R installation automatically.
+-   You may want to consult this useful [Getting Started Guide](https://docs.posit.co/ide/user/ide/get-started/) for R Studio to understand the basic layout and workflow.
 
 # Install GitHub Desktop
 
